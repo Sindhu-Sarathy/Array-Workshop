@@ -92,8 +92,15 @@ public class NameRepository {
      * @return An array containing all matching names.
      */
     public static String[] findByFirstName(final String firstName) {
-        //todo: PART 3: findByFirstName method
-        return null;
+        String[] fullnames=new String[0];
+        for(String name:names){
+            //if(name.startsWith(firstName)){
+            if(name.split(" ")[0].equalsIgnoreCase(firstName)){
+                fullnames=Arrays.copyOf(fullnames,fullnames.length+1);
+                fullnames[fullnames.length-1]=name;
+            }
+        }
+        return fullnames;
     }
 
 
@@ -104,8 +111,15 @@ public class NameRepository {
      * @return An array containing all matching names.
      */
     public static String[] findByLastName(final String lastName) {
-        //todo: PART 3: implement findByLastName method
-        return null;
+        String[] fullnames=new String[0];
+        for(String name:names){
+            //if(name.startsWith(firstName)){
+            if(name.split(" ")[1].equalsIgnoreCase(lastName)){
+                fullnames=Arrays.copyOf(fullnames,fullnames.length+1);
+                fullnames[fullnames.length-1]=name;
+            }
+        }
+        return fullnames;
     }
 
 
@@ -117,8 +131,15 @@ public class NameRepository {
      * @return True if the name is updated successfully; false if the updated name already exists or the original name is not found.
      */
     public static boolean update(final String original, final String updatedName) {
-        //todo: PART 3: implement update method
-        return false;
+        Arrays.sort(names);
+        int index=Arrays.binarySearch(names,original);
+        if(index<0 || Arrays.binarySearch(names,updatedName) >= 0){
+            return false;
+        }
+        else{
+            names[index]=updatedName;
+            return true;
+        }
     }
 
 
